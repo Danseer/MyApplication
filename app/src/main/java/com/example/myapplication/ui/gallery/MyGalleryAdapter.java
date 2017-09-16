@@ -1,8 +1,12 @@
 package com.example.myapplication.ui.gallery;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +17,11 @@ import com.example.myapplication.R;
 import com.example.myapplication.model.myUser;
 import com.example.myapplication.ui.MainActivity;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
@@ -26,7 +35,6 @@ import static java.security.AccessController.getContext;
 public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.ViewHolder> implements RealmChangeListener {
 
     private RealmResults<myUser> mUser;
-
 
     public MyGalleryAdapter(RealmResults<myUser> users) {
 
@@ -42,12 +50,12 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        //myUser GalleryItem = mUser.get(position);
-        //Picasso.with(MainActivity.this).load(GalleryItem.getAvatarUrl()).into(holder.imageItemView);
+
         String login = mUser.get(position).getLogin();
         holder.userLogin.setText(login);
         String url = mUser.get(position).getAvatarUrl();
-       // Picasso.with(itemView.getContext()).load(url).into(holder.imageItemView);
+        Picasso.with(holder.itemView.getContext()).load(url).into(holder.imageItemView);
+
     }
 
     @Override
@@ -75,6 +83,7 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
             CL = (ConstraintLayout) itemView.findViewById(R.id.cl);
         }
     }
+
 
 
 }
