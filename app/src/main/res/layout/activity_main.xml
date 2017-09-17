@@ -8,15 +8,12 @@
     <FrameLayout
         android:id="@+id/gallery_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@android:color/holo_green_light" />
+        android:layout_height="385dp" />
 
     <FrameLayout
         android:id="@+id/list_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@android:color/holo_red_dark" />
+        android:layout_weight="1" />
 
 </LinearLayout>

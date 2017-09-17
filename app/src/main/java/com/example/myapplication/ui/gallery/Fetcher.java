@@ -48,8 +48,8 @@ public class Fetcher {
 
 
             String jsonString = getJSONString(url);
-            Log.e("url", url);
-            Log.e("jsonString", jsonString);
+            //Log.e("url", url);
+           // Log.e("jsonString", jsonString);
 
 
             parseItems(itemsList, jsonString);
@@ -69,9 +69,9 @@ public class Fetcher {
             JSONObject userJSONObject = usersJSONArray.getJSONObject(i);
             myUser item = new myUser();
             item.setLogin(userJSONObject.getString("login"));
-            Log.e("login ", item.getLogin());
+           // Log.e("login ", item.getLogin());
             item.setAvatarUrl(userJSONObject.getString("avatar_url"));
-            Log.e("url_avatar ", item.getAvatarUrl());
+            //Log.e("url_avatar ", item.getAvatarUrl());
             items.add(item);
         }
 

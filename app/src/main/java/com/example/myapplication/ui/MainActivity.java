@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.myUser;
+import com.example.myapplication.model.userRepos;
 import com.example.myapplication.ui.gallery.Fetcher;
 import com.example.myapplication.ui.gallery.MyGalleryAdapter;
 import com.example.myapplication.ui.gallery.MyGalleryFrafment;
@@ -65,11 +66,16 @@ public class MainActivity extends AppCompatActivity {
 
                     for (int i = 0; i < mItems.size(); i++) {
                         myUser mu = realm.createObject(myUser.class);
-                        Log.e("getLogin", mItems.get(i).getLogin());
+                       // Log.e("getLogin", mItems.get(i).getLogin());
                         mu.setLogin(mItems.get(i).getLogin());
-                        Log.e("getUrl", mItems.get(i).getAvatarUrl());
+                       // Log.e("getUrl", mItems.get(i).getAvatarUrl());
                         mu.setAvatarUrl(mItems.get(i).getAvatarUrl());
                     }
+
+                   //userRepos ur=realm.createObject(userRepos.class);
+                  //  ur.setUserRepos("repos");
+                   // userRepos ur1=realm.createObject(userRepos.class);
+                   // ur1.setUserRepos("repos-repos");
                 }
 
             });

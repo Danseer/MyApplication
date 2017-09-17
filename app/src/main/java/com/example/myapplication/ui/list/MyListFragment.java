@@ -3,15 +3,19 @@ package com.example.myapplication.ui.list;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.myUser;
+import com.example.myapplication.model.userRepos;
+import com.example.myapplication.ui.gallery.MyGalleryAdapter;
 
 /**
  * Created by Константин on 16.09.2017.
@@ -36,7 +40,13 @@ public class MyListFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.RVlistFragment);
         return view;
     }
-
+    @Override
+    public void onViewCreated(final View view, final Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        final RealmResults<userRepos> repos = mRealm.where(userRepos.class).findAll();
+        mRecyclerView.setAdapter(new MyListAdapter(repos));
+    }
 
     @Override
     public void onDestroy() {

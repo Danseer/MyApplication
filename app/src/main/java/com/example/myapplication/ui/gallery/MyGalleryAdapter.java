@@ -1,9 +1,5 @@
 package com.example.myapplication.ui.gallery;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,18 +11,11 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.myUser;
-import com.example.myapplication.ui.MainActivity;
+import com.example.myapplication.ui.list.FetherList;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by Константин on 16.09.2017.
@@ -55,6 +44,18 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
         holder.userLogin.setText(login);
         String url = mUser.get(position).getAvatarUrl();
         Picasso.with(holder.itemView.getContext()).load(url).into(holder.imageItemView);
+        holder.CL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //new FetherList().fetchItems( (String)(holder.userLogin.getText()));
+                //Log.e("onklick_string",v.get))
+                String s= String.valueOf(holder.userLogin.getText());
+                holder.userLogin.setText("rrrrrrr");
+                Log.e("onklick_string",s);
+               // new FetherList().fetchItems(s);
+
+            }
+        });
 
     }
 
@@ -78,7 +79,7 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageItemView = (ImageView) itemView.findViewById(R.id.ivUser_avatar);
+            imageItemView = (ImageView) itemView.findViewById(R.id.ivFolder);
             userLogin = (TextView) itemView.findViewById(R.id.tvLogin);
             CL = (ConstraintLayout) itemView.findViewById(R.id.cl);
         }
