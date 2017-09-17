@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<myUser> users) {
             mItems = users;
-            Log.e("size", String.valueOf(mItems.size()));
+            Log.e("sizeUsers", String.valueOf(mItems.size()));
 
             realm.executeTransaction(new Realm.Transaction() {
 

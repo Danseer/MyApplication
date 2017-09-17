@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.gallery;
 
+import android.os.AsyncTask;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,9 +12,14 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.myUser;
+import com.example.myapplication.model.userRepos;
 import com.example.myapplication.ui.list.FetherList;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
@@ -24,11 +30,16 @@ import io.realm.RealmResults;
 public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.ViewHolder> implements RealmChangeListener {
 
     private RealmResults<myUser> mUser;
+    private List<userRepos> mItems = new ArrayList<>();
+    Realm realm;
+    String s;
 
     public MyGalleryAdapter(RealmResults<myUser> users) {
 
         mUser = users;
         mUser.addChangeListener(this);
+
+        realm = Realm.getDefaultInstance();
     }
 
     @Override
@@ -47,12 +58,9 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
         holder.CL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //new FetherList().fetchItems( (String)(holder.userLogin.getText()));
-                //Log.e("onklick_string",v.get))
-                String s= String.valueOf(holder.userLogin.getText());
-                holder.userLogin.setText("rrrrrrr");
-                Log.e("onklick_string",s);
-               // new FetherList().fetchItems(s);
+
+                 s= String.valueOf(holder.userLogin.getText());
+               new FetchItemListTask().execute();
 
             }
         });
@@ -84,7 +92,48 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
             CL = (ConstraintLayout) itemView.findViewById(R.id.cl);
         }
     }
+//-------------------------------------------------
+private class FetchItemListTask extends AsyncTask<Void, Void, List<userRepos>> {
+    @Override
+    protected void onPreExecute() {
 
 
+    }
+
+    @Override
+    protected List<userRepos> doInBackground(Void... voids) {
+        return new FetherList().fetchItems(s);
+    }
+
+    @Override
+    protected void onPostExecute(List<userRepos> repos) {
+        mItems = repos;
+        Log.e("sizeRepos", String.valueOf(mItems.size()));
+
+        realm.executeTransaction(new Realm.Transaction() {
+
+            public void execute(Realm realm) {
+                //realm.deleteAll();
+
+                for (int i = 0; i < mItems.size(); i++) {
+                    userRepos ur = realm.createObject(userRepos.class);
+                    ur.setUserRepos(mItems.get(i).getUserRepos());
+
+                   // myUser mu = realm.createObject(myUser.class);
+                    // Log.e("getLogin", mItems.get(i).getLogin());
+                   // mu.setLogin(mItems.get(i).getLogin());
+                    // Log.e("getUrl", mItems.get(i).getAvatarUrl());
+                   // mu.setAvatarUrl(mItems.get(i).getAvatarUrl());
+                }
+
+                //userRepos ur=realm.createObject(userRepos.class);
+                //  ur.setUserRepos("repos");
+                // userRepos ur1=realm.createObject(userRepos.class);
+                // ur1.setUserRepos("repos-repos");
+            }
+
+        });
+    }
+}
 
 }

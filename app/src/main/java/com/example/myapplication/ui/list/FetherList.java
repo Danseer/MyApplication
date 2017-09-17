@@ -38,7 +38,7 @@ public class FetherList {
         return result;
     }
 
-    public void fetchItems(String login) {
+    public List<userRepos> fetchItems(String login) {
         final List<userRepos> reposList = new ArrayList<>();
         try {
             String url = "https://api.github.com/users/" + login + "/repos";
@@ -51,18 +51,18 @@ public class FetherList {
 
             parseItems(reposList, jsonString);
 
-            realm.executeTransaction(new Realm.Transaction() {
+            // realm.executeTransaction(new Realm.Transaction() {
 
-                public void execute(Realm realm) {
-                    for (int i = 0; i < reposList.size(); i++) {
-                        userRepos ur = realm.createObject(userRepos.class);
-                        // Log.e("getLogin", reposList.get(i).getLogin());
-                        ur.setUserRepos(reposList.get(i).getUserRepos());
+            //   public void execute(Realm realm) {
+            //    for (int i = 0; i < reposList.size(); i++) {
+            //      userRepos ur = realm.createObject(userRepos.class);
+            // Log.e("getLogin", reposList.get(i).getLogin());
+            //       ur.setUserRepos(reposList.get(i).getUserRepos());
 
-                    }
+            //  }
 
-                }
-            });
+            //  }
+            // });
 
         } catch (IOException e) {
             Log.e(TAG, "Ощибка загрузки данных", e);
@@ -70,7 +70,7 @@ public class FetherList {
             Log.e(TAG, "Ошибка парсинга JSON", e);
         }
 
-
+        return reposList;
 
     }
 
@@ -80,7 +80,7 @@ public class FetherList {
         for (int i = 0; i < usersJSONArray.length(); i++) {
             JSONObject userJSONObject = usersJSONArray.getJSONObject(i);
             userRepos item = new userRepos();
-
+Log.e("repositories",userJSONObject.getString("name"));
             item.setUserRepos(userJSONObject.getString("name"));
 
 
