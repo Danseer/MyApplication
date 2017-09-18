@@ -9,17 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.myapplication.R;
 import com.example.myapplication.model.myUser;
 import com.example.myapplication.model.userRepos;
 import com.example.myapplication.ui.list.FetherList;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
@@ -35,11 +31,11 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
     Realm realm;
     String s;
 
+
     public MyGalleryAdapter(RealmResults<myUser> users) {
 
         mUser = users;
         mUser.addChangeListener(this);
-
         realm = Realm.getDefaultInstance();
     }
 
@@ -60,8 +56,9 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
             @Override
             public void onClick(View v) {
 
-                 s= String.valueOf(holder.userLogin.getText());
-               new FetchItemListTask().execute();
+                s = String.valueOf(holder.userLogin.getText());
+
+                new FetchItemListTask().execute();
 
             }
         });
@@ -76,7 +73,7 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
 
     @Override
     public void onChange(Object o) {
-        Log.e("onChange GalleryAdapter", String.valueOf(mItems.size()));
+
         notifyDataSetChanged();
     }
 
@@ -87,48 +84,49 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
         TextView userLogin;
         ConstraintLayout CL;
 
+
         public ViewHolder(View itemView) {
             super(itemView);
             imageItemView = (ImageView) itemView.findViewById(R.id.ivFolder);
             userLogin = (TextView) itemView.findViewById(R.id.tvLogin);
+
             CL = (ConstraintLayout) itemView.findViewById(R.id.cl);
         }
     }
-//-------------------------------------------------
-private class FetchItemListTask extends AsyncTask<Void, Void, List<userRepos>> {
-    @Override
-    protected void onPreExecute() {
+
+    //-------------------------------------------------
+    private class FetchItemListTask extends AsyncTask<Void, Void, List<userRepos>> {
+        @Override
+        protected void onPreExecute() {
 
 
-    }
+        }
 
-    @Override
-    protected List<userRepos> doInBackground(Void... voids) {
-        return new FetherList().fetchItems(s);
-    }
+        @Override
+        protected List<userRepos> doInBackground(Void... voids) {
+            return new FetherList().fetchItems(s);
+        }
 
-    @Override
-    protected void onPostExecute(List<userRepos> repos) {
-        mItems = repos;
-        Log.e("sizeRepos", String.valueOf(mItems.size()));
+        @Override
+        protected void onPostExecute(List<userRepos> repos) {
+            mItems = repos;
+            Log.e("sizeRepos", String.valueOf(mItems.size()));
 
-        realm.executeTransaction(new Realm.Transaction() {
+            realm.executeTransaction(new Realm.Transaction() {
 
-            public void execute(Realm realm) {
+                public void execute(Realm realm) {
 
-                realm.where(userRepos.class).findAll().deleteAllFromRealm();
+                    realm.where(userRepos.class).findAll().deleteAllFromRealm();
 
-                for (int i = 0; i < mItems.size(); i++) {
-                    userRepos ur = realm.createObject(userRepos.class);
-                    ur.setUserRepos(mItems.get(i).getUserRepos());
-
+                    for (int i = 0; i < mItems.size(); i++) {
+                        userRepos ur = realm.createObject(userRepos.class);
+                        ur.setUserRepos(mItems.get(i).getUserRepos());
+                    }
 
                 }
 
-            }
-
-        });
+            });
+        }
     }
-}
 
 }

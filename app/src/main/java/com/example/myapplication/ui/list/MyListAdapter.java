@@ -2,7 +2,6 @@ package com.example.myapplication.ui.list;
 
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,6 @@ import com.example.myapplication.model.userRepos;
             String title =  mRepositories.get(position).getUserRepos();
             holder.reposTitle.setText(title);
 
-
         }
 
         @Override
@@ -52,11 +50,8 @@ import com.example.myapplication.model.userRepos;
         }
 
 
-
-
     @Override
     public void onChange(Object o) {
-        Log.e("onChange ListAdapter", String.valueOf(mRepositories.size()));
 
         notifyDataSetChanged();
     }

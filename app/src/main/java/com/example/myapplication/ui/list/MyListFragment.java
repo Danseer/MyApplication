@@ -8,14 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
-
 import com.example.myapplication.R;
-import com.example.myapplication.model.myUser;
 import com.example.myapplication.model.userRepos;
-import com.example.myapplication.ui.gallery.MyGalleryAdapter;
+
 
 /**
  * Created by Константин on 16.09.2017.
@@ -29,7 +26,6 @@ public class MyListFragment extends Fragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mRealm = Realm.getDefaultInstance();
 
     }
@@ -46,6 +42,8 @@ public class MyListFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         final RealmResults<userRepos> repos = mRealm.where(userRepos.class).findAll();
         mRecyclerView.setAdapter(new MyListAdapter(repos));
+
+
     }
 
     @Override

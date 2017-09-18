@@ -1,19 +1,13 @@
 package com.example.myapplication.ui.list;
 
 import android.util.Log;
-
-import com.example.myapplication.model.myUser;
 import com.example.myapplication.model.userRepos;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.realm.Realm;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -23,8 +17,6 @@ import okhttp3.Response;
  */
 
 public class FetherList {
-    private static final String TAG = "FetcherList";
-    Realm realm;
 
     public String getJSONString(String URLSpec) throws IOException {
 
@@ -42,33 +34,14 @@ public class FetherList {
         final List<userRepos> reposList = new ArrayList<>();
         try {
             String url = "https://api.github.com/users/" + login + "/repos";
-
-
             String jsonString = getJSONString(url);
             Log.e("url", url);
             Log.e("jsonString", jsonString);
-
-
             parseItems(reposList, jsonString);
 
-            // realm.executeTransaction(new Realm.Transaction() {
 
-            //   public void execute(Realm realm) {
-            //    for (int i = 0; i < reposList.size(); i++) {
-            //      userRepos ur = realm.createObject(userRepos.class);
-            // Log.e("getLogin", reposList.get(i).getLogin());
-            //       ur.setUserRepos(reposList.get(i).getUserRepos());
-
-            //  }
-
-            //  }
-            // });
-
-        } catch (IOException e) {
-            Log.e(TAG, "Ощибка загрузки данных", e);
-        } catch (JSONException e) {
-            Log.e(TAG, "Ошибка парсинга JSON", e);
-        }
+        } catch (IOException e) {}
+        catch (JSONException e) {}
 
         return reposList;
 
@@ -80,10 +53,7 @@ public class FetherList {
         for (int i = 0; i < usersJSONArray.length(); i++) {
             JSONObject userJSONObject = usersJSONArray.getJSONObject(i);
             userRepos item = new userRepos();
-Log.e("repositories",userJSONObject.getString("name"));
             item.setUserRepos(userJSONObject.getString("name"));
-
-
             items.add(item);
         }
 
