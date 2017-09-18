@@ -2,18 +2,19 @@ package com.example.myapplication.ui.list;
 
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.myapplication.R;
-import com.example.myapplication.model.userRepos;
-import com.squareup.picasso.Picasso;
-
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
+import com.example.myapplication.R;
+import com.example.myapplication.model.userRepos;
+
+
+
 
 /**
  * Created by Константин on 16.09.2017.
@@ -51,13 +52,17 @@ import io.realm.RealmResults;
         }
 
 
-        @Override
-        public void onChange(Object o) {
-            notifyDataSetChanged();
-        }
 
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void onChange(Object o) {
+        Log.e("onChange ListAdapter", String.valueOf(mRepositories.size()));
+
+        notifyDataSetChanged();
+    }
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
             ImageView imageItemView;
             TextView reposTitle;

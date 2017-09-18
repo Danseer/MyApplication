@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.myUser;
@@ -75,6 +76,7 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
 
     @Override
     public void onChange(Object o) {
+        Log.e("onChange GalleryAdapter", String.valueOf(mItems.size()));
         notifyDataSetChanged();
     }
 
@@ -113,23 +115,16 @@ private class FetchItemListTask extends AsyncTask<Void, Void, List<userRepos>> {
         realm.executeTransaction(new Realm.Transaction() {
 
             public void execute(Realm realm) {
-                //realm.deleteAll();
+
+                realm.where(userRepos.class).findAll().deleteAllFromRealm();
 
                 for (int i = 0; i < mItems.size(); i++) {
                     userRepos ur = realm.createObject(userRepos.class);
                     ur.setUserRepos(mItems.get(i).getUserRepos());
 
-                   // myUser mu = realm.createObject(myUser.class);
-                    // Log.e("getLogin", mItems.get(i).getLogin());
-                   // mu.setLogin(mItems.get(i).getLogin());
-                    // Log.e("getUrl", mItems.get(i).getAvatarUrl());
-                   // mu.setAvatarUrl(mItems.get(i).getAvatarUrl());
+
                 }
 
-                //userRepos ur=realm.createObject(userRepos.class);
-                //  ur.setUserRepos("repos");
-                // userRepos ur1=realm.createObject(userRepos.class);
-                // ur1.setUserRepos("repos-repos");
             }
 
         });
