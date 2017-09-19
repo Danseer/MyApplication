@@ -52,6 +52,12 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
         holder.userLogin.setText(login);
         String url = mUser.get(position).getAvatarUrl();
         Picasso.with(holder.itemView.getContext()).load(url).into(holder.imageItemView);
+        int count=mUser.get(position).getChangesCount();
+        if(count!=0)  holder.changeCount.setText(String.valueOf(count));
+
+        else  holder.changeCount.setText("0");
+
+
         holder.CL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,13 +89,14 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
         ImageView imageItemView;
         TextView userLogin;
         ConstraintLayout CL;
+        TextView changeCount;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             imageItemView = (ImageView) itemView.findViewById(R.id.ivFolder);
             userLogin = (TextView) itemView.findViewById(R.id.tvLogin);
-
+            changeCount = (TextView) itemView.findViewById(R.id.tvChangeCount);
             CL = (ConstraintLayout) itemView.findViewById(R.id.cl);
         }
     }

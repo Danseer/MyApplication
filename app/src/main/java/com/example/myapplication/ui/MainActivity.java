@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity
         }
         FirebaseApp.initializeApp(this);
         String token = FirebaseInstanceId.getInstance().getToken();
-       Log.d("myToken", token);
-        Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+       //Log.d("myToken", token);
+       // Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
         FirebaseMessaging.getInstance().subscribeToTopic("news");
     }
 
@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity
                         myUser mu = realm.createObject(myUser.class);
                         mu.setLogin(mItems.get(i).getLogin());
                         mu.setAvatarUrl(mItems.get(i).getAvatarUrl());
+                        mu.setId(mItems.get(i).getId());
                     }
                 }
             });

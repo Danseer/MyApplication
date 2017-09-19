@@ -72,6 +72,8 @@ public class Fetcher {
            // Log.e("login ", item.getLogin());
             item.setAvatarUrl(userJSONObject.getString("avatar_url"));
             //Log.e("url_avatar ", item.getAvatarUrl());
+            item.setId(userJSONObject.getString("id"));
+            Log.e("id ", item.getId());
             items.add(item);
         }
 

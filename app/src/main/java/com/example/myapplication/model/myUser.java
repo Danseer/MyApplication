@@ -8,8 +8,8 @@ import io.realm.RealmObject;
 
 public class myUser extends RealmObject {
 
-    private String login,avatarUrl;
-
+    private String id,login,avatarUrl;
+    private int  changesCount=0;
 
     public String getLogin() {
         return login;
@@ -27,5 +27,19 @@ public class myUser extends RealmObject {
         this.avatarUrl = avatarUrl;
     }
 
+    public int getChangesCount() {
+        return changesCount;
+    }
 
+    public void setChangesCount(int i) {
+        this.changesCount +=1;
+
+    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

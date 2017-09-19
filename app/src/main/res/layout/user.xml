@@ -25,11 +25,25 @@
         android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="18dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        android:textSize="20sp"
         app:layout_constraintLeft_toRightOf="@+id/ivFolder"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvChangeCount"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="30sp"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
