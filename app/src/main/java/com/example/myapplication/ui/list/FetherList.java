@@ -53,7 +53,7 @@ public class FetherList {
         for (int i = 0; i < usersJSONArray.length(); i++) {
             JSONObject userJSONObject = usersJSONArray.getJSONObject(i);
             userRepos item = new userRepos();
-            item.setUserRepos(userJSONObject.getString("name"));
+            item.setUserRepos(userJSONObject.getString("full_name"));
             items.add(item);
         }
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity
         new FetchItemTask().execute();
         realm = Realm.getDefaultInstance();
 
+
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity
                     .add(R.id.list_container, new MyListFragment())
                     .commit();
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelId = getString(R.string.default_notification_channel_id);
             String channelName = getString(R.string.default_notification_channel_name);
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity
                     channelName, NotificationManager.IMPORTANCE_LOW));
         }
         FirebaseApp.initializeApp(this);
-        String token = FirebaseInstanceId.getInstance().getToken();
+        //String token = FirebaseInstanceId.getInstance().getToken();
        //Log.d("myToken", token);
        // Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
         FirebaseMessaging.getInstance().subscribeToTopic("news");

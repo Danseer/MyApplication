@@ -30,7 +30,7 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
     private List<userRepos> mItems = new ArrayList<>();
     Realm realm;
     String s;
-
+TextView UsName;
 
     public MyGalleryAdapter(RealmResults<myUser> users) {
 
@@ -63,7 +63,7 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
             public void onClick(View v) {
 
                 s = String.valueOf(holder.userLogin.getText());
-
+//UsName.setText(s);
                 new FetchItemListTask().execute();
 
             }
@@ -89,7 +89,8 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
         ImageView imageItemView;
         TextView userLogin;
         ConstraintLayout CL;
-        TextView changeCount;
+        TextView changeCount,UsName;
+
 
 
         public ViewHolder(View itemView) {
@@ -98,6 +99,7 @@ public class MyGalleryAdapter extends RecyclerView.Adapter<MyGalleryAdapter.View
             userLogin = (TextView) itemView.findViewById(R.id.tvLogin);
             changeCount = (TextView) itemView.findViewById(R.id.tvChangeCount);
             CL = (ConstraintLayout) itemView.findViewById(R.id.cl);
+            //UsName=(TextView) itemView.findViewById(R.id.tvUsName);
         }
     }
 
